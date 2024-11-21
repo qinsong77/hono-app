@@ -1,0 +1,20 @@
+{
+  "name": "hono-app",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts"
+  },
+  "dependencies": {
+    "hono": "^4.6.10",
+    "drizzle-orm": "^0.36.3",
+    "pg": "^8.11.3",
+    "redis": "^4.6.13",
+    "bcrypt": "^5.1.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/bun": "latest",
+    "@types/pg": "^8.10.9",
+    "drizzle-kit": "^0.28.1"
+  }
+}

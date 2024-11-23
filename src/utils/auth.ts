@@ -1,7 +1,5 @@
-import { randomBytes } from "crypto";
-
 export const generateSessionId = () => {
-  return randomBytes(32).toString("hex");
+  return Bun.randomUUIDv7();
 };
 
 export const hashPassword = async (password: string) => {

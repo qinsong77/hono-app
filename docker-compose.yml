@@ -2,23 +2,23 @@ version: '3.8'
 services:
   postgres:
     image: postgres:15.6
+    container_name: hono-app-pgsql
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-admin}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
-      POSTGRES_DB: ${POSTGRES_DB:-auth_db}
+      POSTGRES_DB: hono_app
       POSTGRES_INITDB_ARGS: "--encoding=UTF8 --lc-collate=C --lc-ctype=C"
-      PGDATA: /var/lib/postgresql/data/pgdata
-    ports:
-      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin -d auth_db"]
+      test: ["CMD-SHELL", "pg_isready -U admin -d hono_app"]
       interval: 10s
       timeout: 5s
       retries: 5
     restart: unless-stopped
-    shm_size: '2gb'
+#    shm_size: '2gb'
     command:
       - "postgres"
       - "-c"
@@ -28,6 +28,7 @@ services:
 
   redis:
     image: redis:7.2.4
+    container_name: hono-app-redis
     ports:
       - "6379:6379"
     volumes:
@@ -39,6 +40,23 @@ services:
       timeout: 5s
       retries: 5
     restart: unless-stopped
+
+  postgresql-init:
+    image: flyway/flyway:10.7
+    container_name: hono-app-pgsql-init
+    command: >
+      -url=jdbc:postgresql://postgres:5432/hono_app
+      -user=${POSTGRES_USER:-admin}
+      -password=${POSTGRES_PASSWORD:-password}
+      -baselineOnMigrate=true
+      -baselineVersion="0.0"
+      -validateMigrationNaming=true
+      migrate
+    volumes:
+      - ./migrations/postgresql:/flyway/sql
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   postgres_data:

@@ -1,0 +1,14 @@
+# Ignore all files in the `dist` directory
+dist/
+node_modules/
+.vscode/
+.idea/
+
+
+# Ignore all `.log` files
+*.log
+
+# Ignore specific file
+
+bun.lockb
+.editorconfig

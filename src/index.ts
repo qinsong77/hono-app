@@ -1,15 +1,13 @@
-import { Hono } from "hono";
-import { cors } from "hono/cors";
-import auth from "./routes/auth";
-import user from "./routes/user";
+import { Hono } from 'hono';
+import { logger } from 'hono/logger';
+import auth from './routes/auth';
+import user from './routes/user';
 
 const app = new Hono();
+app.use(logger());
 
-// 启用 CORS
-app.use("/*", cors());
-
-// 路由挂载
-app.route("/api/auth", auth);
-app.route("/api/users", user);
+app.get('/', (c) => c.text('Hello World!'));
+app.route('/api/auth', auth);
+app.route('/api/user', user);
 
 export default app;

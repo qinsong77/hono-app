@@ -1,0 +1,14 @@
+# Context
+
+## tech stack
+
+- Typescript + Zod
+- [bun](https://bun.sh/docs/)
+- [hono](https://hono.dev/)
+ -  [hono-doc](https://hono.dev/docs/)
+ -  [hono-example](https://hono.dev/examples/)
+- [drizzle](https://orm.drizzle.team/docs/)
+  - [drizzle+pg starter](https://orm.drizzle.team/docs/get-started/postgresql-new)
+- PostgresSQL + Redis
+- Docker Compose
+

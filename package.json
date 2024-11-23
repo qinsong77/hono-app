@@ -6,7 +6,7 @@
     "dev": "bun run --hot src/index.ts | pino-pretty",
     "format": "biome format --write",
     "lint": "biome format --write",
-    "lint_and_check": "biome check --write"
+    "lint_and_check": "biome check --write --verbose"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.4.1",
